@@ -18,4 +18,4 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 * DELETE@ /v1/respondent/{respondent-id}/main-activity/start-time/{start-time} //Usikker på denne
 
 
-* PATCH@ /v1/respondent/{respondent-id}/main-activity/start-time/{start-time}
+* PATCH@ /v1/respondent/{respondent-id}/main-activity/{activity-id}
