@@ -107,10 +107,11 @@ class MainActivityGateway(
         }
     }
 
-    fun patchMainActivityById(respondentId: UUID, activityId: String): ResponseWrapper {
+    internal fun patchMainActivityById(respondentId: UUID, activityId: String, payload: String): ResponseWrapper {
         try {
             val respons = client.patch()
                 .uri(baseUrl + patchMainActivityByIdPath(respondentId, activityId))
+                .bodyValue(payload)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .onStatus(HttpStatus::isError) {

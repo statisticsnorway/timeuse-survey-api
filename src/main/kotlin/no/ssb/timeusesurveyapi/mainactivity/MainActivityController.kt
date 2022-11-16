@@ -84,9 +84,10 @@ class MainActivityController(
     @PatchMapping("/{activity-id}")
     internal fun patchMainActivityById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
-        @PathVariable(value = "activity-id") activityId: String
+        @PathVariable(value = "activity-id") activityId: String,
+        @RequestBody payload: String
     ): ResponseEntity<String> {
         logger.info("Patching main activity by activityId='$activityId' for respondentId='$respondentId'")
-        return mainActivityGateway.patchMainActivityById(respondentId, activityId).asResponseEntity()
+        return mainActivityGateway.patchMainActivityById(respondentId, activityId, payload).asResponseEntity()
     }
 }

@@ -47,6 +47,7 @@ internal fun stubForGetMainActivity(respondentId: UUID, activityId: String, payl
 internal fun stubForPostMainActivity(payload: String) {
     WireMock.stubFor(
         WireMock.post(WireMock.urlPathMatching(postMainActivityPath()))
+            .withRequestBody(WireMock.containing("{"))
             .willReturn(
                 WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -57,6 +58,7 @@ internal fun stubForPostMainActivity(payload: String) {
 internal fun stubForPostMainActivities(respondentId: UUID, payload: String) {
     WireMock.stubFor(
         WireMock.post(WireMock.urlPathMatching(postMainActivitiesPath(respondentId)))
+            .withRequestBody(WireMock.containing("{"))
             .willReturn(
                 WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -90,9 +92,11 @@ internal fun stubDeleteMainActivityByStartTime(respondentId: UUID, startTime: St
             )
     )
 }
-internal fun stubPatchMainActivityById(respondentId: UUID, activityId: String, statusCode: Int = 200){
+
+internal fun stubPatchMainActivityById(respondentId: UUID, activityId: String, statusCode: Int = 200) {
     WireMock.stubFor(
         WireMock.patch(WireMock.urlPathMatching(patchMainActivityByIdPath(respondentId, activityId)))
+            .withRequestBody(WireMock.containing("{"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
             )
