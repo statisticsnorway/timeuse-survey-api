@@ -14,25 +14,15 @@ internal fun stubForGetMainActivitiesGroupByDay(respondentId: UUID, payload: Str
     )
 }
 
-internal fun stubForGetMainActivities(respondentId: UUID, payload: String) {
+internal fun stubForGetMainActivities(respondentId: UUID, payload: String = "", statusCode: Int = 200) {
     WireMock.stubFor(
         WireMock.get(WireMock.urlPathMatching(getMainActivitiesPath(respondentId)))
             .willReturn(
-                WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+                WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)
             )
     )
 }
-
-internal fun stub404ForGetMainActivities(respondentId: UUID) {
-    WireMock.stubFor(
-        WireMock.get(WireMock.urlPathMatching(getMainActivitiesPath(respondentId)))
-            .willReturn(
-                WireMock.aResponse().withStatus(404).withHeader("Content-Type", "application/json")
-            )
-    )
-}
-
 
 internal fun stubForGetMainActivity(respondentId: UUID, activityId: String, payload: String) {
     WireMock.stubFor(

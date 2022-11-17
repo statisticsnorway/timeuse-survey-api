@@ -35,7 +35,7 @@ class MainActivityControllerTest {
 
     @Test
     fun `404 from timeuse-survey-service when getting main activities should give 404 from controller`() {
-        stub404ForGetMainActivities(respondentId)
+        stubForGetMainActivities(respondentId, statusCode = 404)
 
         restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)

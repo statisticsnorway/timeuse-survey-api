@@ -1,4 +1,4 @@
-package no.ssb.timeusesurveyapi.mainactivity
+package no.ssb.timeusesurveyapi
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
