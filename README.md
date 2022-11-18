@@ -19,3 +19,9 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 
 
 * PATCH@ /v1/respondent/{respondent-id}/main-activity/{activity-id}
+
+### Household members
+* GET@ /v1/respondent/{respondent-id}/household-members
+* POST@ /v1/respondent/{respondent-id}/household-members
+* PUT@ /v1/respondent/{respondent-id}/household-members/{household-member-id}
+* DELETE@ /v1/respondent/{respondent-id}/household-members/{household-member-id}

@@ -1,5 +1,6 @@
 package no.ssb.timeusesurveyapi.mainactivity
 
+import no.ssb.timeusesurveyapi.ResponseWrapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus

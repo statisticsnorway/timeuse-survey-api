@@ -34,8 +34,8 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `404 from external service when getting main activities should give 404 from controller`() {
-        stub404ForGetMainActivities(respondentId)
+    fun `404 from timeuse-survey-service when getting main activities should give 404 from controller`() {
+        stubForGetMainActivities(respondentId, statusCode = 404)
 
         restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
@@ -43,7 +43,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `Getting main activity by id should respond with same payload as from external service`() {
+    fun `Getting main activity by id should respond with same payload as from timeuse-survey-service`() {
         val activityId = "123"
         stubForGetMainActivity(respondentId, activityId, mainActivityJson)
 
@@ -54,7 +54,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `Getting main activities group by day should respond with same payload as from external service`() {
+    fun `Getting main activities group by day should respond with same payload as from timeuse-survey-service`() {
         stubForGetMainActivitiesGroupByDay(respondentId, mainActivitiesGroupByDayJson)
 
         restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity/group-by-day", String::class.java).also {
@@ -93,7 +93,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `404 from external service when deleting main activity should give 404 from controller`(){
+    fun `404 from timeuse-survey-service when deleting main activity should give 404 from controller`(){
         stubDeleteMainActivity(respondentId, statusCode = 404)
 
         restTemplate.exchange("/v1/respondent/$respondentId/main-activity", HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java).also{
@@ -115,7 +115,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `404 from external service when deleting main activity by id should give 404 from controller`(){
+    fun `404 from timeuse-survey-service when deleting main activity by id should give 404 from controller`(){
         val activityId = "123"
         stubDeleteMainActivityById(respondentId, activityId, statusCode = 404)
 
@@ -141,7 +141,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `404 from external service when deleting main activity by start time should give 404 from controller`() {
+    fun `404 from timeuse-survey-service when deleting main activity by start time should give 404 from controller`() {
         val startTime = "01.01.2022:12:12:12"
         stubDeleteMainActivityByStartTime(respondentId, startTime, statusCode = 404)
 
@@ -168,7 +168,7 @@ class MainActivityControllerTest {
 
 
     @Test
-    fun `404 from external service when patching main activity should give 404 from controller`() {
+    fun `404 from timeuse-survey-service when patching main activity should give 404 from controller`() {
         val activityId = "123"
         stubPatchMainActivityById(respondentId, activityId, statusCode = 404)
 
