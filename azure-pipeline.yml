@@ -49,11 +49,10 @@ resources:
 #      ref: use-gar-instead-of-nexus-maven
       endpoint: github-Tidsbruksprosjektet
 
-jobs:
-  - job: Test
-      - task: Gradle@3
-        displayName: 'Run tests'
-        inputs:
-          tasks: 'clean check'
-          gradleWrapperFile: 'gradlew'
-          javaHomeOption: 'JDKVersion'
+steps:
+- task: Gradle@3
+  displayName: 'Run tests'
+  inputs:
+    tasks: 'clean check'
+    gradleWrapperFile: 'gradlew'
+    javaHomeOption: 'JDKVersion'
