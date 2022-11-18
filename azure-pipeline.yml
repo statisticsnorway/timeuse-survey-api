@@ -6,8 +6,6 @@ trigger:
       - main
       - staging/*
       - qa
-      - '*'
-      - *
   tags:
     include:
       - '*'
