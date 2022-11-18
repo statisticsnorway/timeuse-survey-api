@@ -56,7 +56,7 @@ steps:
     tasks: 'clean check'
     gradleWrapperFile: 'gradlew'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '17'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
