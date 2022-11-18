@@ -72,5 +72,5 @@ steps:
 
 - template: docker/docker-build-image-and-push-to-gcr.yml@templates
   parameters:
-    tagToTag: ${{ variables.masterTag }}-${{ variables.fullSha }}
-    gcrImageName: ${{ variables.imageName }}
+    repoName: ${{ variables.repoName }}
+    imageName: ${{ variables.imageName }}
