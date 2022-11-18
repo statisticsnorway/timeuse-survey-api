@@ -50,9 +50,10 @@ resources:
       endpoint: github-Tidsbruksprosjektet
 
 jobs:
-  - task: Gradle@3
-    displayName: 'Run tests'
-    inputs:
-      tasks: 'clean check'
-      gradleWrapperFile: 'gradlew'
-      javaHomeOption: 'JDKVersion'
+  - job: Test
+      - task: Gradle@3
+        displayName: 'Run tests'
+        inputs:
+          tasks: 'clean check'
+          gradleWrapperFile: 'gradlew'
+          javaHomeOption: 'JDKVersion'
