@@ -70,7 +70,7 @@ steps:
     jdkVersionOption: '17'
     jdkArchitectureOption: 'x64'
 
-- template: docker/docker-build-image-and-push-to-gc.yml@templates
+- template: docker/docker-build-image-and-push-to-gcr.yml@templates
   parameters:
     tagToTag: ${{ variables.masterTag }}-${{ variables.fullSha }}
     gcrImageName: ${{ variables.imageName }}
