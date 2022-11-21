@@ -25,7 +25,7 @@ class WebClientService(
                 POST -> client.post()
                 PUT -> client.put()
                 PATCH -> client.patch()
-                DELETE, GET -> throw Exception("Request with payload must be PUT or POST")
+                DELETE, GET -> throw Exception("Request with payload must be PUT, PATCH or POST")
             }
 
             val respons = requestStart
