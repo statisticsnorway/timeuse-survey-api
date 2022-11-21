@@ -25,3 +25,8 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 * POST@ /v1/respondent/{respondent-id}/household-members
 * PUT@ /v1/respondent/{respondent-id}/household-members/{household-member-id}
 * DELETE@ /v1/respondent/{respondent-id}/household-members/{household-member-id}
+
+
+### Questionnaire
+* GET@ /v1/respondent/{respondent-id}/questionnaire/{questionnaire-type}
+* POST@ /v1/respondent/{respondent-id}/questionnaire/{questionnaire-type}
