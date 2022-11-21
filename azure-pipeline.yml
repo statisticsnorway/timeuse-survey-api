@@ -4,7 +4,8 @@ trigger:
   branches:
     include:
       - main
-      - staging/*
+      - staging
+      - staging-*
       - qa
   tags:
     include:
