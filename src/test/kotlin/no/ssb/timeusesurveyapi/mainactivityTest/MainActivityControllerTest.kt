@@ -10,7 +10,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
-import java.util.UUID
+import java.util.*
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,7 +24,7 @@ class MainActivityControllerTest {
     private val respondentId = UUID.randomUUID()
 
     @Test
-    fun `Getting main activities should respond with same payload as from external service`() {
+    fun `Getting main activities should respond with same payload as from timeuse-survey-service`() {
         stubForGetMainActivities(respondentId = respondentId, payload = mainActivitiesJson)
 
         restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
