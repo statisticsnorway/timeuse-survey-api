@@ -30,6 +30,7 @@ class WebClientService(
 
             val respons = requestStart
                 .uri(timeuseSurveyServiceBaseUrl + path)
+                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(payload)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
