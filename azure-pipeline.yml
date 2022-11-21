@@ -46,7 +46,6 @@ resources:
       type: github
       name: statisticsnorway/azure-pipelines-templates
       ref: refs/tags/1.1.26
-#      ref: use-gar-instead-of-nexus-maven
       endpoint: github-Tidsbruksprosjektet
 
 steps:
