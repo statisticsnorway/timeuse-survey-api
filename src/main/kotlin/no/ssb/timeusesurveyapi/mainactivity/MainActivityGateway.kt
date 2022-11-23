@@ -12,15 +12,15 @@ class MainActivityGateway(
 ) {
 
     internal fun getMainActivities(respondentId: UUID): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(GET, getMainActivitiesPath(respondentId))
+        return webClientService.makeRequest(GET, getMainActivitiesPath(respondentId))
     }
 
     internal fun getMainActivityById(respondentId: UUID, activityId: String): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(GET, getMainActivityByIdPath(respondentId, activityId))
+        return webClientService.makeRequest(GET, getMainActivityByIdPath(respondentId, activityId))
     }
 
     internal fun getMainActivitiesGroupByDay(respondentId: UUID): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(GET, getMainActivitiesGroupByDayPath(respondentId))
+        return webClientService.makeRequest(GET, getMainActivitiesGroupByDayPath(respondentId))
     }
 
     internal fun postMainActivity(payload: String): ResponseWrapper {
@@ -32,15 +32,15 @@ class MainActivityGateway(
     }
 
     internal fun deleteMainActivity(respondentId: UUID): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(DELETE, deleteMainActivityPath(respondentId))
+        return webClientService.makeRequest(DELETE, deleteMainActivityPath(respondentId))
     }
 
     internal fun deleteMainActivityById(respondentId: UUID, activityId: String): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(DELETE, deleteMainActivityByIdPath(respondentId, activityId))
+        return webClientService.makeRequest(DELETE, deleteMainActivityByIdPath(respondentId, activityId))
     }
 
     internal fun deleteMainActivityByStartTime(respondentId: UUID, startTime: String): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(DELETE, deleteMainActivityByStartTimePath(respondentId, startTime))
+        return webClientService.makeRequest(DELETE, deleteMainActivityByStartTimePath(respondentId, startTime))
     }
 
     internal fun patchMainActivityById(respondentId: UUID, activityId: String, payload: String): ResponseWrapper {

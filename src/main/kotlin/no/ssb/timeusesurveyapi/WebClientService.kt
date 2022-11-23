@@ -12,12 +12,19 @@ import reactor.core.publisher.Mono
 @Service
 class WebClientService(
     @Value("\${timeuse-survey-service-ingress}")
-    private val timeuseSurveyServiceBaseUrl: String
+    private val timeuseSurveyServiceBaseUrl: String,
+    @Value("\${session-token-cookie-name}")
+    private val sessionTokenCookieName: String
 ) {
     private val client: WebClient = WebClient.create()
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    internal fun makeRequestWithPayload(requestType: RequestType, path: String, payload: String): ResponseWrapper {
+    internal fun makeRequestWithPayload(
+        requestType: RequestType,
+        path: String,
+        payload: String,
+        sessionTokenValue: String = ""
+    ): ResponseWrapper {
         logger.info("Making request '$requestType' to path '$path' with payload")
 
         try {
@@ -30,6 +37,7 @@ class WebClientService(
 
             val respons = requestStart
                 .uri(timeuseSurveyServiceBaseUrl + path)
+                .cookie(sessionTokenCookieName, sessionTokenValue)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(payload)
                 .accept(MediaType.APPLICATION_JSON)
@@ -47,7 +55,11 @@ class WebClientService(
         }
     }
 
-    internal fun makeRequestWithoutPayload(requestType: RequestType, path: String): ResponseWrapper {
+    internal fun makeRequest(
+        requestType: RequestType,
+        path: String,
+        sessionTokenValue: String = ""
+    ): ResponseWrapper {
         logger.info("Making request '$requestType' to path '$path'")
 
         try {
@@ -62,6 +74,7 @@ class WebClientService(
             val respons = requestStart
                 .uri(timeuseSurveyServiceBaseUrl + path)
                 .accept(MediaType.APPLICATION_JSON)
+                .cookie(sessionTokenCookieName, sessionTokenValue)
                 .retrieve()
                 .onStatus(HttpStatus::isError) {
                     Mono.empty()

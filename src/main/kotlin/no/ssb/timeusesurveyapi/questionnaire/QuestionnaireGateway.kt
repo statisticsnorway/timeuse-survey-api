@@ -12,7 +12,7 @@ class QuestionnaireGateway(
 ) {
 
     internal fun getQuestionnaireByQuestionnaireType(respondentId: UUID, questionnaireType: QuestionnaireType): ResponseWrapper {
-        return webClientService.makeRequestWithoutPayload(RequestType.GET, getQuestionnairePath(respondentId, questionnaireType))
+        return webClientService.makeRequest(RequestType.GET, getQuestionnairePath(respondentId, questionnaireType))
     }
 
     internal fun postQuestionnaire(respondentId: UUID, questionnaireType: QuestionnaireType, payload: String): ResponseWrapper {

@@ -10,6 +10,7 @@ import java.util.*
 internal fun stubForGetHouseholdMembers(respondentId: UUID, payload: String = "", statusCode: Int = 200) {
     WireMock.stubFor(
         WireMock.get(WireMock.urlPathMatching(getHouseholdMembersPath(respondentId)))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -21,6 +22,7 @@ internal fun stubForPostHouseholdMembers(respondentId: UUID, payload: String = "
     WireMock.stubFor(
         WireMock.post(WireMock.urlPathMatching(postHouseholdMembersPath(respondentId)))
             .withRequestBody(WireMock.containing("{"))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -32,6 +34,7 @@ internal fun stubForPutHouseholdMembers(respondentId: UUID, householdMemberId: S
     WireMock.stubFor(
         WireMock.put(WireMock.urlPathMatching(putHouseholdMembersByIdPath(respondentId, householdMemberId)))
             .withRequestBody(WireMock.containing("{"))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -42,6 +45,7 @@ internal fun stubForPutHouseholdMembers(respondentId: UUID, householdMemberId: S
 internal fun stubForDeleteHouseholdMembers(respondentId: UUID, householdMemberId: String, statusCode: Int = 200) {
     WireMock.stubFor(
         WireMock.delete(WireMock.urlPathMatching(deleteHouseholdMembersByIdPath(respondentId, householdMemberId)))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
             )
