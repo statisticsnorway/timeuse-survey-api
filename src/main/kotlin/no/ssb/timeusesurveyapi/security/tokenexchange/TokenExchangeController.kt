@@ -18,9 +18,9 @@ class TokenExchangeController(
     @PostMapping
     internal fun exchange(
         @RequestBody tokenExchangeRequest: TokenExchangeRequest,
-        respons: HttpServletResponse,
+        servletRespons: HttpServletResponse,
     ): ResponseEntity<String> {
         logger.info("Exchanging token for respondentId='${tokenExchangeRequest.respondentId}'")
-        return tokenExchangeGateway.exchangeToken(tokenExchangeRequest, respons).asResponseEntity()
+        return tokenExchangeGateway.exchangeToken(tokenExchangeRequest, servletRespons).asResponseEntity()
     }
 }

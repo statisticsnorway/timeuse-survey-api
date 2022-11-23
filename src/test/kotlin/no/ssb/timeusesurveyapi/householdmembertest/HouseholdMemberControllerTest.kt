@@ -1,6 +1,5 @@
 package no.ssb.timeusesurveyapi.householdmembertest
 
-import no.ssb.timeusesurveyapi.mainactivityTest.mainActivityJson
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
