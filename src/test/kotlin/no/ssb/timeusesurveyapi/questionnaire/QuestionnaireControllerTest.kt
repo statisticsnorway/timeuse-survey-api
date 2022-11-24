@@ -1,6 +1,9 @@
 package no.ssb.timeusesurveyapi.questionnaire
 
 import no.ssb.timeusesurveyapi.questionnaire.QuestionnaireType.WEBSKJEMA
+import no.ssb.timeusesurveyapi.questionnaireJson
+import no.ssb.timeusesurveyapi.stubGetRequest
+import no.ssb.timeusesurveyapi.stubPostRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +33,7 @@ class QuestionnaireControllerTest {
 
     @Test
     fun `Getting questionnaire should respond with same payload aas from timeuse-survey-service`(){
-        stubForGetQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson)
+        stubGetRequest(getQuestionnairePath(respondentId, WEBSKJEMA), questionnaireJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
@@ -44,8 +47,22 @@ class QuestionnaireControllerTest {
     }
 
     @Test
+    fun `Getting questionnaire without sessionToken cookie should respond with 403`(){
+        stubGetRequest(getQuestionnairePath(respondentId, WEBSKJEMA))
+
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
+            HttpMethod.GET,
+            HttpEntity.EMPTY,
+            String::class.java
+        ).also {
+            assertEquals(HttpStatus.FORBIDDEN, it.statusCode)
+        }
+    }
+
+    @Test
     fun `404 from timeuse-survey-service when getting questionnaire should give 404 from controller`(){
-        stubForGetQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson, statusCode = 404)
+        stubGetRequest(getQuestionnairePath(respondentId, WEBSKJEMA), questionnaireJson, 404)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
@@ -59,7 +76,7 @@ class QuestionnaireControllerTest {
 
     @Test
     fun `Posting questionnaire should work as expected`(){
-        stubForPostQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson)
+        stubPostRequest(postQuestionnairePath(respondentId, WEBSKJEMA), questionnaireJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
@@ -73,7 +90,7 @@ class QuestionnaireControllerTest {
 
     @Test
     fun `401 from timeuse-survey-service when posting questionnaire should give 401 from controller`(){
-        stubForPostQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson, statusCode = 401)
+        stubPostRequest(postQuestionnairePath(respondentId, WEBSKJEMA), questionnaireJson, 401)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",

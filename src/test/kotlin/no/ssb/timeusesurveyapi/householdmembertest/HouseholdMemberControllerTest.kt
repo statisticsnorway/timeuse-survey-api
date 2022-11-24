@@ -1,5 +1,10 @@
 package no.ssb.timeusesurveyapi.householdmembertest
 
+import no.ssb.timeusesurveyapi.*
+import no.ssb.timeusesurveyapi.householdmember.deleteHouseholdMembersByIdPath
+import no.ssb.timeusesurveyapi.householdmember.getHouseholdMembersPath
+import no.ssb.timeusesurveyapi.householdmember.postHouseholdMembersPath
+import no.ssb.timeusesurveyapi.householdmember.putHouseholdMembersByIdPath
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,7 +34,7 @@ class HouseholdMemberControllerTest {
 
     @Test
     fun `Getting household members should respond with same payload as from timeuse-survey-service`() {
-        stubForGetHouseholdMembers(respondentId = respondentId, payload = householdMembersJson)
+        stubGetRequest(getHouseholdMembersPath(respondentId), householdMembersJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
@@ -49,7 +54,7 @@ class HouseholdMemberControllerTest {
 
     @Test
     fun `404 from timeuse-survey-service when getting household members should give 404 from controller`() {
-        stubForGetHouseholdMembers(respondentId, statusCode = 404)
+        stubGetRequest(getHouseholdMembersPath(respondentId), statusCode = 404)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
@@ -61,7 +66,7 @@ class HouseholdMemberControllerTest {
 
     @Test
     fun `Posting household members work as expected`(){
-        stubForPostHouseholdMembers(respondentId, statusCode = 201, payload = householdMembersJson)
+        stubPostRequest(postHouseholdMembersPath(respondentId), householdMembersJson, statusCode = 201)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
@@ -74,7 +79,7 @@ class HouseholdMemberControllerTest {
 
     @Test
     fun `400 from timeuse-survey-service when posting household members should give 400 from controller`(){
-        stubForPostHouseholdMembers(respondentId, statusCode = 400, payload = householdMembersJson)
+        stubPostRequest(postHouseholdMembersPath(respondentId), householdMembersJson, statusCode = 400)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
@@ -87,7 +92,7 @@ class HouseholdMemberControllerTest {
     @Test
     fun `Put for household members work as expected`(){
         val householdMemberId = "123"
-        stubForPutHouseholdMembers(respondentId, householdMemberId, householdMemberJson)
+        stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), payload = householdMemberJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
@@ -101,7 +106,7 @@ class HouseholdMemberControllerTest {
     @Test
     fun `400 from timeuse-survey-service when put for household members should give 400 from controller`(){
         val householdMemberId = "123"
-        stubForPutHouseholdMembers(respondentId, householdMemberId, householdMemberJson, statusCode = 400)
+        stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 400, householdMemberJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
@@ -114,7 +119,7 @@ class HouseholdMemberControllerTest {
     @Test
     fun `404 from timeuse-survey-service when put for household members should give 404 from controller`(){
         val householdMemberId = "123"
-        stubForPutHouseholdMembers(respondentId, householdMemberId, householdMemberJson, statusCode = 404)
+        stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 404, householdMemberJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
@@ -127,7 +132,7 @@ class HouseholdMemberControllerTest {
     @Test
     fun `Delete household member by id work as expected`(){
         val householdMemberId = "123"
-        stubForDeleteHouseholdMembers(respondentId, householdMemberId)
+        stubDeleteRequest(deleteHouseholdMembersByIdPath(respondentId, householdMemberId))
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
@@ -140,7 +145,7 @@ class HouseholdMemberControllerTest {
     @Test
     fun `404 from timeuse-survey-service when delete household member by id should give 404 from controller`(){
         val householdMemberId = "123"
-        stubForDeleteHouseholdMembers(respondentId, householdMemberId, statusCode = 404)
+        stubDeleteRequest(deleteHouseholdMembersByIdPath(respondentId, householdMemberId), 404)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",

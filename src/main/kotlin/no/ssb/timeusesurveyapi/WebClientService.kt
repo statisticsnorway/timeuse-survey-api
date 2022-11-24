@@ -23,7 +23,7 @@ class WebClientService(
         requestType: RequestType,
         path: String,
         payload: String,
-        sessionTokenValue: String = ""
+        sessionTokenValue: String
     ): ResponseWrapper {
         logger.info("Making request '$requestType' to path '$path' with payload")
 
@@ -58,7 +58,7 @@ class WebClientService(
     internal fun makeRequest(
         requestType: RequestType,
         path: String,
-        sessionTokenValue: String = ""
+        sessionTokenValue: String
     ): ResponseWrapper {
         logger.info("Making request '$requestType' to path '$path'")
 
