@@ -6,6 +6,7 @@ import java.util.*
 internal fun stubForGetQuestionnaire(respondentId: UUID, questionnaireType: QuestionnaireType, payload: String, statusCode: Int = 200) {
     WireMock.stubFor(
         WireMock.get(WireMock.urlPathMatching(getQuestionnairePath(respondentId, questionnaireType)))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)
@@ -17,6 +18,7 @@ internal fun stubForPostQuestionnaire(respondentId: UUID, questionnaireType: Que
     WireMock.stubFor(
         WireMock.post(WireMock.urlPathMatching(postQuestionnairePath(respondentId, questionnaireType)))
             .withRequestBody(WireMock.containing("{"))
+            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
                     .withBody(payload)

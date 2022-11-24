@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import java.util.*
@@ -21,12 +24,20 @@ class QuestionnaireControllerTest {
     @Autowired
     lateinit var restTemplate: TestRestTemplate
     private val respondentId = UUID.randomUUID()
+    private val sessionTokenHeader = HttpHeaders().also {
+        it.set("Cookie", "sessionToken=c74c1987-b5e8-4d48-a1a7-f23f98ea7343")
+    }
 
     @Test
     fun `Getting questionnaire should respond with same payload aas from timeuse-survey-service`(){
         stubForGetQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(questionnaireJson, it.body)
         }
@@ -36,7 +47,12 @@ class QuestionnaireControllerTest {
     fun `404 from timeuse-survey-service when getting questionnaire should give 404 from controller`(){
         stubForGetQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson, statusCode = 404)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
     }
@@ -45,7 +61,12 @@ class QuestionnaireControllerTest {
     fun `Posting questionnaire should work as expected`(){
         stubForPostQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson)
 
-        restTemplate.postForEntity("/v1/respondent/$respondentId/questionnaire/${WEBSKJEMA}", questionnaireJson, String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
+            HttpMethod.POST,
+            HttpEntity(questionnaireJson, sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
     }
@@ -54,7 +75,12 @@ class QuestionnaireControllerTest {
     fun `401 from timeuse-survey-service when posting questionnaire should give 401 from controller`(){
         stubForPostQuestionnaire(respondentId, WEBSKJEMA, questionnaireJson, statusCode = 401)
 
-        restTemplate.postForEntity("/v1/respondent/$respondentId/questionnaire/${WEBSKJEMA}", questionnaireJson, String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/questionnaire/$WEBSKJEMA",
+            HttpMethod.POST,
+            HttpEntity(questionnaireJson, sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.UNAUTHORIZED, it.statusCode)
         }
     }

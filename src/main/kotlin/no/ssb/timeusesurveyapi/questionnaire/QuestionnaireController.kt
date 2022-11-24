@@ -1,9 +1,11 @@
 package no.ssb.timeusesurveyapi.questionnaire
 
+import no.ssb.timeusesurveyapi.utils.getSessionTokenValue
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/v1/respondent/{respondent-id}/questionnaire")
@@ -16,10 +18,11 @@ class QuestionnaireController(
     @GetMapping("/{questionnaire-type}")
     internal fun getQuestionnaireByQuestionnaireType(
         @PathVariable(value = "respondent-id") respondentId: UUID,
-        @PathVariable("questionnaire-type") questionnaireType: QuestionnaireType
+        @PathVariable("questionnaire-type") questionnaireType: QuestionnaireType,
+        request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Collecting questionnaire with type='$questionnaireType' for respondentId='$respondentId'")
-        return gateway.getQuestionnaireByQuestionnaireType(respondentId, questionnaireType).asResponseEntity()
+        return gateway.getQuestionnaireByQuestionnaireType(respondentId, questionnaireType, request.getSessionTokenValue()).asResponseEntity()
     }
 
 
@@ -27,9 +30,10 @@ class QuestionnaireController(
     internal fun postQuestionnaire(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         @PathVariable("questionnaire-type") questionnaireType: QuestionnaireType,
-        @RequestBody payload: String
+        @RequestBody payload: String,
+        request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting questionnaire with type='$questionnaireType' for respondentId='$respondentId'")
-        return gateway.postQuestionnaire(respondentId, questionnaireType, payload).asResponseEntity()
+        return gateway.postQuestionnaire(respondentId, questionnaireType, payload, request.getSessionTokenValue()).asResponseEntity()
     }
 }

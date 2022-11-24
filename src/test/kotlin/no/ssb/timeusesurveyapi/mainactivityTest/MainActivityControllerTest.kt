@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
@@ -22,14 +23,31 @@ class MainActivityControllerTest {
     @Autowired
     lateinit var restTemplate: TestRestTemplate
     private val respondentId = UUID.randomUUID()
+    private val sessionTokenHeader = HttpHeaders().also {
+        it.set("Cookie", "sessionToken=c74c1987-b5e8-4d48-a1a7-f23f98ea7343")
+    }
 
     @Test
     fun `Getting main activities should respond with same payload as from timeuse-survey-service`() {
         stubForGetMainActivities(respondentId = respondentId, payload = mainActivitiesJson)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(mainActivitiesJson, it.body)
+        }
+    }
+
+    @Test
+    fun `Getting main activities without sessionToken cookie should respond with 403`() {
+        stubForGetMainActivities(respondentId = respondentId, payload = mainActivitiesJson)
+
+        restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
+            assertEquals(HttpStatus.FORBIDDEN, it.statusCode)
         }
     }
 
@@ -37,7 +55,12 @@ class MainActivityControllerTest {
     fun `404 from timeuse-survey-service when getting main activities should give 404 from controller`() {
         stubForGetMainActivities(respondentId, statusCode = 404)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
     }
@@ -47,7 +70,12 @@ class MainActivityControllerTest {
         val activityId = "123"
         stubForGetMainActivity(respondentId, activityId, mainActivityJson)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity/$activityId", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity/$activityId",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(mainActivityJson, it.body)
         }
@@ -57,7 +85,12 @@ class MainActivityControllerTest {
     fun `Getting main activities group by day should respond with same payload as from timeuse-survey-service`() {
         stubForGetMainActivitiesGroupByDay(respondentId, mainActivitiesGroupByDayJson)
 
-        restTemplate.getForEntity("/v1/respondent/$respondentId/main-activity/group-by-day", String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity/group-by-day",
+            HttpMethod.GET,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(mainActivitiesGroupByDayJson, it.body)
         }
@@ -67,7 +100,12 @@ class MainActivityControllerTest {
     fun `Posting main activity work as expected`() {
         stubForPostMainActivity(mainActivityJson)
 
-        restTemplate.postForEntity("/v1/respondent/$respondentId/main-activity", mainActivityJson, String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity",
+            HttpMethod.POST,
+            HttpEntity<String>(mainActivityJson, sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(mainActivityJson, it.body)
         }
@@ -77,7 +115,12 @@ class MainActivityControllerTest {
     fun `Posting main activities work as expected`() {
         stubForPostMainActivities(respondentId, mainActivitiesJson)
 
-        restTemplate.postForEntity("/v1/respondent/$respondentId/main-activity/activities", mainActivitiesJson, String::class.java).also {
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity/activities",
+            HttpMethod.POST,
+            HttpEntity<String>(mainActivitiesJson, sessionTokenHeader),
+            String::class.java
+        ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(mainActivitiesJson, it.body)
         }
@@ -87,7 +130,12 @@ class MainActivityControllerTest {
     fun `Delete main activity work as expected`(){
         stubDeleteMainActivity(respondentId)
 
-        restTemplate.exchange("/v1/respondent/$respondentId/main-activity", HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java).also{
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity",
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also{
             assertEquals(HttpStatus.OK, it.statusCode)
         }
     }
@@ -96,7 +144,12 @@ class MainActivityControllerTest {
     fun `404 from timeuse-survey-service when deleting main activity should give 404 from controller`(){
         stubDeleteMainActivity(respondentId, statusCode = 404)
 
-        restTemplate.exchange("/v1/respondent/$respondentId/main-activity", HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java).also{
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity",
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
+        ).also{
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
     }
@@ -108,7 +161,9 @@ class MainActivityControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity/$activityId",
-            HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
@@ -121,7 +176,9 @@ class MainActivityControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity/$activityId",
-            HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
@@ -134,7 +191,9 @@ class MainActivityControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity/start-time/$startTime",
-            HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
@@ -145,8 +204,11 @@ class MainActivityControllerTest {
         val startTime = "01.01.2022:12:12:12"
         stubDeleteMainActivityByStartTime(respondentId, startTime, statusCode = 404)
 
-        restTemplate.exchange("/v1/respondent/$respondentId/main-activity/start-time/$startTime",
-            HttpMethod.DELETE, HttpEntity.EMPTY, String::class.java
+        restTemplate.exchange(
+            "/v1/respondent/$respondentId/main-activity/start-time/$startTime",
+            HttpMethod.DELETE,
+            HttpEntity<String>(sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
@@ -155,12 +217,13 @@ class MainActivityControllerTest {
     @Test
     fun `Patch main activity work as expected`() {
         val activityId = "123"
-
         stubPatchMainActivityById(respondentId, activityId)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity/$activityId",
-            HttpMethod.PATCH, HttpEntity(mainActivityJson), String::class.java
+            HttpMethod.PATCH,
+            HttpEntity<String>(mainActivityJson, sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
@@ -174,10 +237,11 @@ class MainActivityControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity/$activityId",
-            HttpMethod.PATCH, HttpEntity(mainActivityJson), String::class.java
+            HttpMethod.PATCH,
+            HttpEntity<String>(mainActivityJson, sessionTokenHeader),
+            String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
     }
-
-}
+ }

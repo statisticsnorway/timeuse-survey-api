@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
+import org.springframework.http.HttpMethod.*
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import java.util.*
@@ -33,7 +33,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
-            HttpMethod.GET, HttpEntity<String>(sessionTokenHeader), String::class.java
+            GET, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(householdMembersJson, it.body)
@@ -53,7 +53,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
-            HttpMethod.GET, HttpEntity<String>(sessionTokenHeader), String::class.java
+            GET, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
@@ -65,7 +65,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
-            HttpMethod.POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
+            POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.CREATED, it.statusCode)
             assertEquals(householdMembersJson, it.body)
@@ -78,7 +78,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members",
-            HttpMethod.POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
+            POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.BAD_REQUEST, it.statusCode)
         }
@@ -91,7 +91,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
-            HttpMethod.PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
+            PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
             assertEquals(householdMemberJson, it.body)
@@ -105,7 +105,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
-            HttpMethod.PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
+            PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.BAD_REQUEST, it.statusCode)
         }
@@ -118,7 +118,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
-            HttpMethod.PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
+            PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }
@@ -131,7 +131,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
-            HttpMethod.DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
+            DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
@@ -144,7 +144,7 @@ class HouseholdMemberControllerTest {
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/household-members/$householdMemberId",
-            HttpMethod.DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
+            DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
         }

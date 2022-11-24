@@ -17,11 +17,11 @@ class CustomHandlerInterceptor : HandlerInterceptor {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        if(isForbiddenRequest(request)) throw MissingSessionTokenCookieException()
+        if(request.isForbidden()) throw MissingSessionTokenCookieException()
         return true
     }
 
-    private fun isForbiddenRequest(request: HttpServletRequest) = request.isNotTokenExchangeRequest() && !request.containSessionTokenCookie()
+    private fun HttpServletRequest.isForbidden() = isNotTokenExchangeRequest() && !containSessionTokenCookie()
 
     override fun postHandle(
         request: HttpServletRequest,

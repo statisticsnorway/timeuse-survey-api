@@ -1,7 +1,6 @@
 package no.ssb.timeusesurveyapi.questionnaire
 
 import no.ssb.timeusesurveyapi.RequestType
-import no.ssb.timeusesurveyapi.ResponseWrapper
 import no.ssb.timeusesurveyapi.WebClientService
 import org.springframework.stereotype.Service
 import java.util.*
@@ -11,12 +10,26 @@ class QuestionnaireGateway(
     private val webClientService: WebClientService
 ) {
 
-    internal fun getQuestionnaireByQuestionnaireType(respondentId: UUID, questionnaireType: QuestionnaireType): ResponseWrapper {
-        return webClientService.makeRequest(RequestType.GET, getQuestionnairePath(respondentId, questionnaireType))
-    }
+    internal fun getQuestionnaireByQuestionnaireType(
+        respondentId: UUID,
+        questionnaireType: QuestionnaireType,
+        sessionTokenValue: String
+    ) = webClientService.makeRequest(
+        requestType = RequestType.GET,
+        path = getQuestionnairePath(respondentId, questionnaireType),
+        sessionTokenValue = sessionTokenValue
+    )
 
-    internal fun postQuestionnaire(respondentId: UUID, questionnaireType: QuestionnaireType, payload: String): ResponseWrapper {
-        return webClientService.makeRequestWithPayload(RequestType.POST, postQuestionnairePath(respondentId, questionnaireType), payload)
-    }
+    internal fun postQuestionnaire(
+        respondentId: UUID,
+        questionnaireType: QuestionnaireType,
+        payload: String,
+        sessionTokenValue: String
+    ) = webClientService.makeRequestWithPayload(
+        requestType = RequestType.POST,
+        path = postQuestionnairePath(respondentId, questionnaireType),
+        payload = payload,
+        sessionTokenValue = sessionTokenValue
+    )
 
 }

@@ -1,7 +1,7 @@
 # timeuse-survey-api
 Tjeneste som skal fungere som en slags reverse-proxy mellom tidsbruk-appen og timeuse-survey-service.
 
-
+For samtlige kall foruten "token-exchange" kreves at sessionToken er tilstedet, ellers får man 403 forbidden. 
 
 ## Funksjonalitet
 
