@@ -1,8 +1,13 @@
 # timeuse-survey-api
-Tjeneste som skal rute forespørsler mellom tidsbruk-appen og timeuse-survey-service.
+Tjeneste som skal fungere som en slags reverse-proxy mellom tidsbruk-appen og timeuse-survey-service.
 
+For samtlige kall foruten "token-exchange" kreves at sessionToken er tilstedet, ellers får man 403 forbidden. 
 
 ## Funksjonalitet
+
+### Token exchange
+* POST@ /v1/token-exchange -> Sender forespørslene videre til timeuse-survey-service og returnerer status og eventuelt sessionToken som cookie.
+
 ### Main activity
 * GET@ /v1/respondent/{respondent-id}/main-activity
 * GET@ /v1/respondent/{respondent-id}/main-activity/{activity-id}
