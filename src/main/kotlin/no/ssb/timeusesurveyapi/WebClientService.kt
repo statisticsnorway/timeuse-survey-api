@@ -28,14 +28,14 @@ class WebClientService(
         logger.info("Making request '$requestType' to path '$path' with payload")
 
         try {
-            val requestStart = when(requestType){
+            val requestWithMethod = when(requestType){
                 POST -> client.post()
                 PUT -> client.put()
                 PATCH -> client.patch()
                 DELETE, GET -> throw Exception("Request with payload must be PUT, PATCH or POST")
             }
 
-            val respons = requestStart
+            val respons = requestWithMethod
                 .uri(timeuseSurveyServiceBaseUrl + path)
                 .cookie(sessionTokenCookieName, sessionTokenValue)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ class WebClientService(
         logger.info("Making request '$requestType' to path '$path'")
 
         try {
-            val requestStart = when(requestType){
+            val requestWithMethod = when(requestType){
                 POST -> client.post()
                 PUT -> client.put()
                 DELETE -> client.delete()
@@ -71,7 +71,7 @@ class WebClientService(
                 PATCH -> client.patch()
             }
 
-            val respons = requestStart
+            val respons = requestWithMethod
                 .uri(timeuseSurveyServiceBaseUrl + path)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookie(sessionTokenCookieName, sessionTokenValue)

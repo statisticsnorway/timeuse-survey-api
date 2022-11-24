@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest
 class QuestionnaireController(
     private val gateway: QuestionnaireGateway
 ) {
-
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/{questionnaire-type}")
