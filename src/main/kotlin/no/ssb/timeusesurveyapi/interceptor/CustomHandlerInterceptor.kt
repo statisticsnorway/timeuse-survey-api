@@ -1,6 +1,6 @@
 package no.ssb.timeusesurveyapi.interceptor
 
-import no.ssb.timeusesurveyapi.MissingSessionTokenCookieException
+import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
 import no.ssb.timeusesurveyapi.utils.containSessionTokenCookie
 import no.ssb.timeusesurveyapi.utils.isNotTokenExchangeRequest
 import org.slf4j.LoggerFactory

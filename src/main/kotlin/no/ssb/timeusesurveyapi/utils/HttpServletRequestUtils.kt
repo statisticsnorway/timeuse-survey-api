@@ -1,6 +1,6 @@
 package no.ssb.timeusesurveyapi.utils
 
-import no.ssb.timeusesurveyapi.MissingSessionTokenCookieException
+import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
 import javax.servlet.http.HttpServletRequest
 
 internal fun HttpServletRequest.getSessionTokenValue() =
