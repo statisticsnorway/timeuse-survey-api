@@ -2,9 +2,7 @@ package no.ssb.timeusesurveyapi.interceptor
 
 import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
 import no.ssb.timeusesurveyapi.utils.containSessionTokenCookie
-import no.ssb.timeusesurveyapi.utils.isNotActuatorRequest
-import no.ssb.timeusesurveyapi.utils.isNotFaviconRequest
-import no.ssb.timeusesurveyapi.utils.isNotTokenExchangeRequest
+import no.ssb.timeusesurveyapi.utils.shouldHaveSessionToken
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
@@ -24,7 +22,7 @@ class CustomHandlerInterceptor : HandlerInterceptor {
         return true
     }
 
-    private fun HttpServletRequest.isForbidden() = isNotTokenExchangeRequest() && isNotActuatorRequest() && isNotFaviconRequest() && !containSessionTokenCookie()
+    private fun HttpServletRequest.isForbidden() = shouldHaveSessionToken() && !containSessionTokenCookie()
 
     override fun postHandle(
         request: HttpServletRequest,
