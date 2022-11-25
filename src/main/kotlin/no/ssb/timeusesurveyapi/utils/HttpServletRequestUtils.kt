@@ -11,3 +11,4 @@ internal fun HttpServletRequest.containSessionTokenCookie() =
 
 internal fun HttpServletRequest.isNotTokenExchangeRequest() = !this.servletPath.contains("/token-exchange")
 internal fun HttpServletRequest.isNotActuatorRequest() = !this.servletPath.contains("/actuator")
+internal fun HttpServletRequest.isNotFaviconRequest() = !this.servletPath.contains("/favicon.ico")
