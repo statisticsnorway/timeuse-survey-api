@@ -18,6 +18,7 @@ class CustomHandlerInterceptor : HandlerInterceptor {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
+        logger.info("${request.method} -> ${request.servletPath}")
         if(request.isForbidden()) throw MissingSessionTokenCookieException()
         return true
     }
