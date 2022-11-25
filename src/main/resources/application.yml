@@ -1,0 +1,11 @@
+spring:
+  main:
+    banner-mode: off
+
+management:
+  endpoints:
+    web:
+      exposure.include: health, metrics, prometheus
+
+session-token-cookie-name: sessionToken
+timeuse-survey-service-ingress: timeuse-survey-service-ingress

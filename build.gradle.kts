@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.7.5"
-	id("io.spring.dependency-management") version "1.0.15.RELEASE"
+	id("org.springframework.boot") version "2.7.6"
+	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 }
@@ -22,6 +22,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.76.Final:osx-aarch_64")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

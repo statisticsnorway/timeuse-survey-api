@@ -9,4 +9,5 @@ internal fun HttpServletRequest.getSessionTokenValue() =
 internal fun HttpServletRequest.containSessionTokenCookie() =
     (this.cookies?.firstOrNull() { it.name.equals("sessionToken") }) != null
 
-internal fun HttpServletRequest.isNotTokenExchangeRequest() = !this.servletPath.contains("token-exchange")
+internal fun HttpServletRequest.isNotTokenExchangeRequest() = !this.servletPath.contains("/token-exchange")
+internal fun HttpServletRequest.isNotActuatorRequest() = !this.servletPath.contains("/actuator")
