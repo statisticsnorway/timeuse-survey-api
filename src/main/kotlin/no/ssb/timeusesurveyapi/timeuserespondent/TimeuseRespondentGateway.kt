@@ -1,8 +1,6 @@
 package no.ssb.timeusesurveyapi.timeuserespondent
 
-import no.ssb.timeusesurveyapi.RequestType
-import no.ssb.timeusesurveyapi.ResponseWrapper
-import no.ssb.timeusesurveyapi.WebClientService
+import no.ssb.timeusesurveyapi.common.*
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,12 +8,20 @@ import java.util.*
 class TimeuseRespondentGateway(
     private val service: WebClientService
 ) {
-    internal fun getTimseuseRespondentById(respondentId: UUID, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequest(RequestType.GET, getTimeuseRespondentByIdPath(respondentId), sessionTokenValue)
+    internal fun getTimseuseRespondentById(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
+        return service.makeRequest(
+            RequestWrapper(RequestType.GET, getTimeuseRespondentByIdPath(respondentId), sessionToken)
+        )
     }
 
-    internal fun updateTimseuseRespondentById(respondentId: UUID, payload: String, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequestWithPayload(RequestType.PUT, putTimeuseRespondentByIdPath(respondentId), payload, sessionTokenValue)
+    internal fun updateTimseuseRespondentById(
+        respondentId: UUID,
+        payload: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return service.makeRequestWithPayload(
+            RequestWrapperWithPayload(RequestType.PUT, putTimeuseRespondentByIdPath(respondentId), payload, sessionToken)
+        )
     }
 
     internal fun updateTimseuseRespondentStatusById(
@@ -23,14 +29,15 @@ class TimeuseRespondentGateway(
         status: Status,
         value: String,
         payload: String,
-        sessionTokenValue: String
+        sessionToken: SessionToken
     ): ResponseWrapper {
         return service.makeRequestWithPayload(
-            RequestType.PUT,
-            putTimeuseRespondentStatusByIdPath(respondentId, status, value),
-            payload,
-            sessionTokenValue
+            RequestWrapperWithPayload(
+                RequestType.PUT,
+                putTimeuseRespondentStatusByIdPath(respondentId, status, value),
+                payload,
+                sessionToken
+            )
         )
     }
-
 }

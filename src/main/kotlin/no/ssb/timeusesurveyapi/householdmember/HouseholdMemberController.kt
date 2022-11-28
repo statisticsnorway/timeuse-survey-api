@@ -1,12 +1,11 @@
 package no.ssb.timeusesurveyapi.householdmember
 
-import no.ssb.timeusesurveyapi.utils.getSessionTokenValue
+import no.ssb.timeusesurveyapi.utils.getSessionToken
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
-
 
 @RestController
 @RequestMapping("/v1/respondent/{respondent-id}/household-members")
@@ -21,7 +20,7 @@ class HouseholdMemberController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Getting household members for respondentId='$respondentId'")
-        return gateway.getHouseholdMembers(respondentId, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.getHouseholdMembers(respondentId, request.getSessionToken()).asResponseEntity()
     }
 
     @PostMapping
@@ -31,7 +30,7 @@ class HouseholdMemberController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting household members for respondentId='$respondentId'")
-        return gateway.postHouseholdMembers(respondentId, payload, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.postHouseholdMembers(respondentId, payload, request.getSessionToken()).asResponseEntity()
     }
 
     @PutMapping("/{household-member-id}")
@@ -42,7 +41,7 @@ class HouseholdMemberController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Updating household members id='$householdMemberId' for respondentId='$respondentId'")
-        return gateway.updateHouseholdMembersById(respondentId, householdMemberId, payload, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.updateHouseholdMembersById(respondentId, householdMemberId, payload, request.getSessionToken()).asResponseEntity()
     }
 
     @DeleteMapping("/{household-member-id}")
@@ -52,6 +51,6 @@ class HouseholdMemberController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Delete household members id='$householdMemberId' for respondentId='$respondentId'")
-        return gateway.deleteHouseholdMembersById(respondentId, householdMemberId, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.deleteHouseholdMembersById(respondentId, householdMemberId, request.getSessionToken()).asResponseEntity()
     }
 }

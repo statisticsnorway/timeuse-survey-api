@@ -1,6 +1,6 @@
 package no.ssb.timeusesurveyapi.security.tokenexchange
 
-import no.ssb.timeusesurveyapi.ResponseWrapper
+import no.ssb.timeusesurveyapi.common.ResponseWrapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus

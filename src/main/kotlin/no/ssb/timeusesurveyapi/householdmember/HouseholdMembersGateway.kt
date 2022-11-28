@@ -1,8 +1,7 @@
 package no.ssb.timeusesurveyapi.householdmember
 
-import no.ssb.timeusesurveyapi.RequestType.*
-import no.ssb.timeusesurveyapi.ResponseWrapper
-import no.ssb.timeusesurveyapi.WebClientService
+import no.ssb.timeusesurveyapi.common.*
+import no.ssb.timeusesurveyapi.common.RequestType.*
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -11,19 +10,38 @@ class HouseholdMembersGateway(
     private val service: WebClientService
 ) {
 
-    internal fun getHouseholdMembers(respondentId: UUID, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequest(GET, getHouseholdMembersPath(respondentId), sessionTokenValue)
+    internal fun getHouseholdMembers(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
+        return service.makeRequest(RequestWrapper(GET, getHouseholdMembersPath(respondentId), sessionToken))
     }
 
-    internal fun postHouseholdMembers(respondentId: UUID, payload: String, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequestWithPayload(POST, postHouseholdMembersPath(respondentId), payload, sessionTokenValue)
+    internal fun postHouseholdMembers(
+        respondentId: UUID,
+        payload: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return service.makeRequestWithPayload(
+            RequestWrapperWithPayload(POST, postHouseholdMembersPath(respondentId), payload, sessionToken)
+        )
     }
 
-    internal fun updateHouseholdMembersById(respondentId: UUID, householdMemberId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequestWithPayload(PUT, putHouseholdMembersByIdPath(respondentId, householdMemberId), payload, sessionTokenValue)
+    internal fun updateHouseholdMembersById(
+        respondentId: UUID,
+        householdMemberId: String,
+        payload: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return service.makeRequestWithPayload(
+            RequestWrapperWithPayload(PUT, putHouseholdMembersByIdPath(respondentId, householdMemberId), payload, sessionToken)
+        )
     }
 
-    internal fun deleteHouseholdMembersById(respondentId: UUID, householdMemberId: String, sessionTokenValue: String): ResponseWrapper {
-        return service.makeRequest(DELETE, deleteHouseholdMembersByIdPath(respondentId, householdMemberId), sessionTokenValue)
+    internal fun deleteHouseholdMembersById(
+        respondentId: UUID,
+        householdMemberId: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return service.makeRequest(
+            RequestWrapper(DELETE, deleteHouseholdMembersByIdPath(respondentId, householdMemberId), sessionToken)
+        )
     }
 }
