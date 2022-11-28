@@ -1,6 +1,6 @@
 package no.ssb.timeusesurveyapi.mainactivity
 
-import no.ssb.timeusesurveyapi.utils.getSessionTokenValue
+import no.ssb.timeusesurveyapi.utils.getSessionToken
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,7 +20,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Collecting main activities for respondentId='$respondentId'")
-        return mainActivityGateway.getMainActivities(respondentId, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.getMainActivities(respondentId, request.getSessionToken()).asResponseEntity()
     }
 
     @GetMapping("/{activity-id}")
@@ -30,7 +30,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Collecting main activity with id='$activityId' for respondentId='$respondentId'")
-        return mainActivityGateway.getMainActivityById(respondentId, activityId, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.getMainActivityById(respondentId, activityId, request.getSessionToken()).asResponseEntity()
     }
 
     @GetMapping("/group-by-day")
@@ -39,7 +39,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Collecting main activities grouped by day for respondentId='$respondentId'")
-        return mainActivityGateway.getMainActivitiesGroupByDay(respondentId, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.getMainActivitiesGroupByDay(respondentId, request.getSessionToken()).asResponseEntity()
     }
 
     @PostMapping
@@ -49,7 +49,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting main activity for respondentId='$respondentId'")
-        return mainActivityGateway.postMainActivity(payload, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.postMainActivity(payload, request.getSessionToken()).asResponseEntity()
     }
 
     @PostMapping("/activities")
@@ -59,7 +59,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting main activities for respondentId='$respondentId'")
-        return mainActivityGateway.postMainActivities(respondentId, payload, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.postMainActivities(respondentId, payload, request.getSessionToken()).asResponseEntity()
     }
 
     @DeleteMapping
@@ -68,7 +68,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Deleting main activity for respondentId='$respondentId'")
-        return mainActivityGateway.deleteMainActivity(respondentId, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.deleteMainActivity(respondentId, request.getSessionToken()).asResponseEntity()
     }
 
     @DeleteMapping("/{activity-id}")
@@ -78,7 +78,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Deleting main activity with id='$activityId' for respondentId='$respondentId'")
-        return mainActivityGateway.deleteMainActivityById(respondentId, activityId, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.deleteMainActivityById(respondentId, activityId, request.getSessionToken()).asResponseEntity()
     }
 
     @DeleteMapping("/start-time/{start-time}")
@@ -88,7 +88,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Deleting main activity by startTime='$startTime' for respondentId='$respondentId'")
-        return mainActivityGateway.deleteMainActivityByStartTime(respondentId, startTime, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.deleteMainActivityByStartTime(respondentId, startTime, request.getSessionToken()).asResponseEntity()
     }
 
     @PatchMapping("/{activity-id}")
@@ -99,6 +99,6 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Updating main activity by activityId='$activityId' for respondentId='$respondentId'")
-        return mainActivityGateway.updateMainActivityById(respondentId, activityId, payload, request.getSessionTokenValue()).asResponseEntity()
+        return mainActivityGateway.updateMainActivityById(respondentId, activityId, payload, request.getSessionToken()).asResponseEntity()
     }
 }

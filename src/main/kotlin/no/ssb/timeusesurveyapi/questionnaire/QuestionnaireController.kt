@@ -1,6 +1,6 @@
 package no.ssb.timeusesurveyapi.questionnaire
 
-import no.ssb.timeusesurveyapi.utils.getSessionTokenValue
+import no.ssb.timeusesurveyapi.utils.getSessionToken
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -21,7 +21,7 @@ class QuestionnaireController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Collecting questionnaire with type='$questionnaireType' for respondentId='$respondentId'")
-        return gateway.getQuestionnaireByQuestionnaireType(respondentId, questionnaireType, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.getQuestionnaireByQuestionnaireType(respondentId, questionnaireType, request.getSessionToken()).asResponseEntity()
     }
 
 
@@ -33,6 +33,6 @@ class QuestionnaireController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting questionnaire with type='$questionnaireType' for respondentId='$respondentId'")
-        return gateway.postQuestionnaire(respondentId, questionnaireType, payload, request.getSessionTokenValue()).asResponseEntity()
+        return gateway.postQuestionnaire(respondentId, questionnaireType, payload, request.getSessionToken()).asResponseEntity()
     }
 }

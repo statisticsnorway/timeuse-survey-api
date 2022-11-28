@@ -1,8 +1,7 @@
 package no.ssb.timeusesurveyapi.mainactivity
 
-import no.ssb.timeusesurveyapi.RequestType.*
-import no.ssb.timeusesurveyapi.ResponseWrapper
-import no.ssb.timeusesurveyapi.WebClientService
+import no.ssb.timeusesurveyapi.common.*
+import no.ssb.timeusesurveyapi.common.RequestType.*
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -11,39 +10,67 @@ class MainActivityGateway(
     private val webClientService: WebClientService
 ) {
 
-    internal fun getMainActivities(respondentId: UUID, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(GET, getMainActivitiesPath(respondentId), sessionTokenValue)
+    internal fun getMainActivities(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
+        return webClientService.makeRequest(RequestWrapper(GET, getMainActivitiesPath(respondentId), sessionToken))
     }
 
-    internal fun getMainActivityById(respondentId: UUID, activityId: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(GET, getMainActivityByIdPath(respondentId, activityId), sessionTokenValue)
+    internal fun getMainActivityById(
+        respondentId: UUID,
+        activityId: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return webClientService.makeRequest(
+            RequestWrapper(GET, getMainActivityByIdPath(respondentId, activityId), sessionToken)
+        )
     }
 
-    internal fun getMainActivitiesGroupByDay(respondentId: UUID, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(GET, getMainActivitiesGroupByDayPath(respondentId), sessionTokenValue)
+    internal fun getMainActivitiesGroupByDay(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
+        return webClientService.makeRequest(
+            RequestWrapper(GET, getMainActivitiesGroupByDayPath(respondentId), sessionToken)
+        )
     }
 
-    internal fun postMainActivity(payload: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequestWithPayload(POST, postMainActivityPath(), payload, sessionTokenValue)
+    internal fun postMainActivity(payload: String, sessionToken: SessionToken): ResponseWrapper {
+        return webClientService.makeRequestWithPayload(
+            RequestWrapperWithPayload(POST, postMainActivityPath(), payload, sessionToken)
+        )
     }
 
-    internal fun postMainActivities(respondentId: UUID, payload: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequestWithPayload(POST, postMainActivitiesPath(respondentId), payload, sessionTokenValue)
+    internal fun postMainActivities(respondentId: UUID, payload: String, sessionToken: SessionToken): ResponseWrapper {
+        return webClientService.makeRequestWithPayload(
+            RequestWrapperWithPayload(POST, postMainActivitiesPath(respondentId), payload, sessionToken)
+        )
     }
 
-    internal fun deleteMainActivity(respondentId: UUID, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(DELETE, deleteMainActivityPath(respondentId), sessionTokenValue)
+    internal fun deleteMainActivity(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
+        return webClientService.makeRequest(RequestWrapper(DELETE, deleteMainActivityPath(respondentId), sessionToken))
     }
 
-    internal fun deleteMainActivityById(respondentId: UUID, activityId: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(DELETE, deleteMainActivityByIdPath(respondentId, activityId), sessionTokenValue)
+    internal fun deleteMainActivityById(
+        respondentId: UUID,
+        activityId: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return webClientService.makeRequest(
+            RequestWrapper(DELETE, deleteMainActivityByIdPath(respondentId, activityId), sessionToken)
+        )
     }
 
-    internal fun deleteMainActivityByStartTime(respondentId: UUID, startTime: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequest(DELETE, deleteMainActivityByStartTimePath(respondentId, startTime), sessionTokenValue)
+    internal fun deleteMainActivityByStartTime(
+        respondentId: UUID,
+        startTime: String,
+        sessionToken: SessionToken
+    ): ResponseWrapper {
+        return webClientService.makeRequest(
+            RequestWrapper(DELETE, deleteMainActivityByStartTimePath(respondentId, startTime), sessionToken)
+        )
     }
 
-    internal fun updateMainActivityById(respondentId: UUID, activityId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
-        return webClientService.makeRequestWithPayload(PATCH, patchMainActivityByIdPath(respondentId, activityId), payload, sessionTokenValue)
+    internal fun updateMainActivityById(
+        respondentId: UUID, activityId: String, payload: String, sessionToken: SessionToken
+    ): ResponseWrapper {
+        return webClientService.makeRequestWithPayload(
+            RequestWrapperWithPayload(PATCH, patchMainActivityByIdPath(respondentId, activityId), payload, sessionToken)
+        )
     }
 }
