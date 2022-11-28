@@ -217,7 +217,7 @@ class MainActivityControllerTest {
     }
 
     @Test
-    fun `Patch main activity by id work as expected`() {
+    fun `Updating main activity by id work as expected`() {
         val activityId = "123"
         stubPatchRequest(patchMainActivityByIdPath(respondentId, activityId))
 
@@ -233,7 +233,7 @@ class MainActivityControllerTest {
 
 
     @Test
-    fun `404 from timeuse-survey-service when patching main activity by id should give 404 from controller`() {
+    fun `404 from timeuse-survey-service when updating main activity by id should give 404 from controller`() {
         val activityId = "123"
         stubPatchRequest(patchMainActivityByIdPath(respondentId, activityId), statusCode = 404)
 

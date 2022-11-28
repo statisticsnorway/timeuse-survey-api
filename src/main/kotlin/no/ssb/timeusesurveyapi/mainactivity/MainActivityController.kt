@@ -92,13 +92,13 @@ class MainActivityController(
     }
 
     @PatchMapping("/{activity-id}")
-    internal fun patchMainActivityById(
+    internal fun updatehMainActivityById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         @PathVariable(value = "activity-id") activityId: String,
         @RequestBody payload: String,
         request: HttpServletRequest
     ): ResponseEntity<String> {
-        logger.info("Patching main activity by activityId='$activityId' for respondentId='$respondentId'")
-        return mainActivityGateway.patchMainActivityById(respondentId, activityId, payload, request.getSessionTokenValue()).asResponseEntity()
+        logger.info("Updating main activity by activityId='$activityId' for respondentId='$respondentId'")
+        return mainActivityGateway.updateMainActivityById(respondentId, activityId, payload, request.getSessionTokenValue()).asResponseEntity()
     }
 }

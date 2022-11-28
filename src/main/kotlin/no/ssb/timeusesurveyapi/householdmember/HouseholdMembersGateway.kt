@@ -19,7 +19,7 @@ class HouseholdMembersGateway(
         return service.makeRequestWithPayload(POST, postHouseholdMembersPath(respondentId), payload, sessionTokenValue)
     }
 
-    internal fun putHouseholdMembersById(respondentId: UUID, householdMemberId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
+    internal fun updateHouseholdMembersById(respondentId: UUID, householdMemberId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
         return service.makeRequestWithPayload(PUT, putHouseholdMembersByIdPath(respondentId, householdMemberId), payload, sessionTokenValue)
     }
 
