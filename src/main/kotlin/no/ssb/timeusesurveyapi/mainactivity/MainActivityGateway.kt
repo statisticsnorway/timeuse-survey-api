@@ -43,7 +43,7 @@ class MainActivityGateway(
         return webClientService.makeRequest(DELETE, deleteMainActivityByStartTimePath(respondentId, startTime), sessionTokenValue)
     }
 
-    internal fun patchMainActivityById(respondentId: UUID, activityId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
+    internal fun updateMainActivityById(respondentId: UUID, activityId: String, payload: String, sessionTokenValue: String): ResponseWrapper {
         return webClientService.makeRequestWithPayload(PATCH, patchMainActivityByIdPath(respondentId, activityId), payload, sessionTokenValue)
     }
 }

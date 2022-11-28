@@ -90,7 +90,7 @@ class HouseholdMemberControllerTest {
     }
 
     @Test
-    fun `Put for household members work as expected`(){
+    fun `Updating household members work as expected`(){
         val householdMemberId = "123"
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), payload = householdMemberJson)
 
@@ -104,7 +104,7 @@ class HouseholdMemberControllerTest {
     }
 
     @Test
-    fun `400 from timeuse-survey-service when put for household members should give 400 from controller`(){
+    fun `400 from timeuse-survey-service when updating household members should give 400 from controller`(){
         val householdMemberId = "123"
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 400, householdMemberJson)
 
@@ -117,7 +117,7 @@ class HouseholdMemberControllerTest {
     }
 
     @Test
-    fun `404 from timeuse-survey-service when put for household members should give 404 from controller`(){
+    fun `404 from timeuse-survey-service when updating household members should give 404 from controller`(){
         val householdMemberId = "123"
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 404, householdMemberJson)
 

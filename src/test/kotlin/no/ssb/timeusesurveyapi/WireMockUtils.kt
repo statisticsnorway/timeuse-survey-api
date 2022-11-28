@@ -106,3 +106,11 @@ internal val mainActivitiesGroupByDayJson = """
   ]
 }
 """.trimIndent()
+
+//language=json
+internal val timeuseRespondentJson = """
+{
+  "parentName" : "Ole",
+  "followUp" : true
+}
+""".trimIndent()

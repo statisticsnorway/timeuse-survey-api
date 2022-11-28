@@ -35,14 +35,14 @@ class HouseholdMemberController(
     }
 
     @PutMapping("/{household-member-id}")
-    internal fun putHouseholdMembersById(
+    internal fun updateHouseholdMembersById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         @PathVariable(value = "household-member-id") householdMemberId: String,
         @RequestBody payload: String,
         request: HttpServletRequest
     ): ResponseEntity<String> {
-        logger.info("Put household members id='$householdMemberId' for respondentId='$respondentId'")
-        return gateway.putHouseholdMembersById(respondentId, householdMemberId, payload, request.getSessionTokenValue()).asResponseEntity()
+        logger.info("Updating household members id='$householdMemberId' for respondentId='$respondentId'")
+        return gateway.updateHouseholdMembersById(respondentId, householdMemberId, payload, request.getSessionTokenValue()).asResponseEntity()
     }
 
     @DeleteMapping("/{household-member-id}")
