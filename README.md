@@ -35,3 +35,9 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 ### Questionnaire
 * GET@ /v1/respondent/{respondent-id}/questionnaire/{questionnaire-type}
 * POST@ /v1/respondent/{respondent-id}/questionnaire/{questionnaire-type}
+
+
+### Timeuserespondent
+* GET@ /v1/respondent/{respondent-id}
+* PUT@ /v1/respondent/{respondent-id}
+* PUT@ /v1/respondent/{respondent-id}/{status}/{value}
