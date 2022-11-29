@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock
 
 internal fun stubGetRequest(path: String, payload: String = "", statusCode: Int = 200){
     WireMock.stubFor(
-        WireMock.get(WireMock.urlPathMatching(path))
+        WireMock.get(WireMock.urlEqualTo(path))
             .withCookie("sessionToken", WireMock.matching("^.{36}$"))
             .willReturn(
                 WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
@@ -113,4 +113,19 @@ internal val timeuseRespondentJson = """
   "parentName" : "Ole",
   "followUp" : true
 }
+""".trimIndent()
+
+//language=json
+internal val diaryStartHistoryJson = """
+    {
+      "diaryStart" : "2022-01-01",
+      "createdTime" : "2022-01-01 11:11:11"
+    }
+""".trimIndent()
+
+internal val diaryStartHistoriesJson = """
+    [
+        $diaryStartHistoryJson,
+        $diaryStartHistoryJson,
+    ]
 """.trimIndent()

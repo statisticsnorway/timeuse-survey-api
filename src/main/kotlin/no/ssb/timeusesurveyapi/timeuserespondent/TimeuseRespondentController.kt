@@ -8,13 +8,13 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
-@RequestMapping("/v1/respondent")
+@RequestMapping("/v1/respondent/{respondent-id}")
 class TimeuseRespondentController(
     private val gateway: TimeuseRespondentGateway
 ) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    @GetMapping("/{respondent-id}")
+    @GetMapping
     internal fun getTimseuseRespondentById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         request: HttpServletRequest
@@ -23,7 +23,7 @@ class TimeuseRespondentController(
         return gateway.getTimseuseRespondentById(respondentId, request.getSessionToken()).asResponseEntity()
     }
 
-    @PutMapping("/{respondent-id}")
+    @PutMapping
     internal fun updateTimseuseRespondentById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         @RequestBody payload: String,
@@ -33,7 +33,7 @@ class TimeuseRespondentController(
         return gateway.updateTimseuseRespondentById(respondentId, payload, request.getSessionToken()).asResponseEntity()
     }
 
-    @PutMapping("/{respondent-id}/{status}/{value}")
+    @PutMapping("/{status}/{value}")
     internal fun updateTimseuseRespondentStatusById(
         @PathVariable(value = "respondent-id") respondentId: UUID,
         @PathVariable(value = "status") status: Status,
