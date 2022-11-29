@@ -41,3 +41,9 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 * GET@ /v1/respondent/{respondent-id}
 * PUT@ /v1/respondent/{respondent-id}
 * PUT@ /v1/respondent/{respondent-id}/{status}/{value}
+
+
+### Diary start history
+* GET@ /v1/respondent/{respondent-id}/diary-start-history
+* POST@ /v1/respondent/{respondent-id}/diary-start-history
+* DELETE@ /v1/respondent/{respondent-id}/diary-start-history
