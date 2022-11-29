@@ -9,18 +9,15 @@ class DiaryStartHistoryGateway(
     private val service: WebClientService
 ) {
 
-    internal fun getDiaryStartHistories(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
-        return service.makeRequest(RequestWrapper(RequestType.GET, getDiaryStartHistoriesPath(respondentId), sessionToken))
-    }
+    internal fun getDiaryStartHistories(respondentId: UUID, sessionToken: SessionToken) =
+        service.makeRequest(RequestWrapper(RequestType.GET, getDiaryStartHistoriesPath(respondentId), sessionToken))
 
-    fun postDiaryStartHistory(respondentId: UUID, payload: String, sessionToken: SessionToken): ResponseWrapper {
-        return service.makeRequestWithPayload(
+    internal fun postDiaryStartHistory(respondentId: UUID, payload: String, sessionToken: SessionToken) =
+        service.makeRequestWithPayload(
             RequestWrapperWithPayload(RequestType.POST, postDiaryStartHistoriesPath(), payload, sessionToken)
         )
-    }
 
-    fun deleteDiaryStartHistory(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
-        return service.makeRequest(RequestWrapper(RequestType.DELETE, deleteDiaryStartHistoriesPath(respondentId), sessionToken))
-    }
+    internal fun deleteDiaryStartHistory(respondentId: UUID, sessionToken: SessionToken) =
+        service.makeRequest(RequestWrapper(RequestType.DELETE, deleteDiaryStartHistoriesPath(respondentId), sessionToken))
 
 }
