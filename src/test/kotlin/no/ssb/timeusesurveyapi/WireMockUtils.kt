@@ -129,3 +129,26 @@ internal val diaryStartHistoriesJson = """
         $diaryStartHistoryJson,
     ]
 """.trimIndent()
+
+//language=json
+internal val companionJson = """
+    {
+      "withFriends" : true,
+      "withRelatives" : true
+    }
+""".trimIndent()
+
+internal val companionsJson = """
+    [
+        $companionJson,
+        $companionJson,
+    ]
+""".trimIndent()
+
+//language=json
+internal val subActivityJson = """
+    {
+      "startTime" : "10:00",
+      "endTime" : "10:10"
+    }
+""".trimIndent()
