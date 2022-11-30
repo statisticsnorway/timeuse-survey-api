@@ -53,3 +53,7 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 * GET@ /v1/respondent/{respondent-id}/companion
 * GET@ /v1/respondent/{respondent-id}/companion/{id}
 * DELETE@ /v1/respondent/{respondent-id}/companion
+
+
+### Sub activity
+* POST@ /v1/respondent/{respondent-id}/sub-activity

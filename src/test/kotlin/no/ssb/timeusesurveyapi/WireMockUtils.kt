@@ -144,3 +144,11 @@ internal val companionsJson = """
         $companionJson,
     ]
 """.trimIndent()
+
+//language=json
+internal val subActivityJson = """
+    {
+      "startTime" : "10:00",
+      "endTime" : "10:10"
+    }
+""".trimIndent()
