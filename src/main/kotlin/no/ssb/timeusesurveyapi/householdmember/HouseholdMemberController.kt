@@ -8,7 +8,7 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
-@RequestMapping("/v1/respondent/{respondent-id}/household-members")
+@RequestMapping("/v1/respondent/{respondent-id}/household-member")
 class HouseholdMemberController(
     private val gateway: HouseholdMembersGateway
 ) {

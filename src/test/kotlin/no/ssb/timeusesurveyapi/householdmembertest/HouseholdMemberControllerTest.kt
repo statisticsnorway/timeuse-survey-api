@@ -37,7 +37,7 @@ class HouseholdMemberControllerTest {
         stubGetRequest(getHouseholdMembersPath(respondentId), householdMembersJson)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members",
+            "/v1/respondent/$respondentId/household-member",
             GET, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
@@ -47,7 +47,7 @@ class HouseholdMemberControllerTest {
 
     @Test
     fun `Getting household members without sessionToken cookie should respond with 403`() {
-        restTemplate.getForEntity("/v1/respondent/$respondentId/household-members", String::class.java).also {
+        restTemplate.getForEntity("/v1/respondent/$respondentId/household-member", String::class.java).also {
             assertEquals(HttpStatus.FORBIDDEN, it.statusCode)
         }
     }
@@ -57,7 +57,7 @@ class HouseholdMemberControllerTest {
         stubGetRequest(getHouseholdMembersPath(respondentId), statusCode = 404)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members",
+            "/v1/respondent/$respondentId/household-member",
             GET, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
@@ -69,7 +69,7 @@ class HouseholdMemberControllerTest {
         stubPostRequest(postHouseholdMembersPath(respondentId), householdMembersJson, statusCode = 201)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members",
+            "/v1/respondent/$respondentId/household-member",
             POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.CREATED, it.statusCode)
@@ -82,7 +82,7 @@ class HouseholdMemberControllerTest {
         stubPostRequest(postHouseholdMembersPath(respondentId), householdMembersJson, statusCode = 400)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members",
+            "/v1/respondent/$respondentId/household-member",
             POST, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.BAD_REQUEST, it.statusCode)
@@ -95,7 +95,7 @@ class HouseholdMemberControllerTest {
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), payload = householdMemberJson)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members/$householdMemberId",
+            "/v1/respondent/$respondentId/household-member/$householdMemberId",
             PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
@@ -109,7 +109,7 @@ class HouseholdMemberControllerTest {
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 400, householdMemberJson)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members/$householdMemberId",
+            "/v1/respondent/$respondentId/household-member/$householdMemberId",
             PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.BAD_REQUEST, it.statusCode)
@@ -122,7 +122,7 @@ class HouseholdMemberControllerTest {
         stubPutRequest(putHouseholdMembersByIdPath(respondentId, householdMemberId), 404, householdMemberJson)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members/$householdMemberId",
+            "/v1/respondent/$respondentId/household-member/$householdMemberId",
             PUT, HttpEntity(householdMemberJson, sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
@@ -135,7 +135,7 @@ class HouseholdMemberControllerTest {
         stubDeleteRequest(deleteHouseholdMembersByIdPath(respondentId, householdMemberId))
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members/$householdMemberId",
+            "/v1/respondent/$respondentId/household-member/$householdMemberId",
             DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
@@ -148,7 +148,7 @@ class HouseholdMemberControllerTest {
         stubDeleteRequest(deleteHouseholdMembersByIdPath(respondentId, householdMemberId), 404)
 
         restTemplate.exchange(
-            "/v1/respondent/$respondentId/household-members/$householdMemberId",
+            "/v1/respondent/$respondentId/household-member/$householdMemberId",
             DELETE, HttpEntity<String>(sessionTokenHeader), String::class.java
         ).also {
             assertEquals(HttpStatus.NOT_FOUND, it.statusCode)
