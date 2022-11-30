@@ -1,6 +1,10 @@
 package no.ssb.timeusesurveyapi.diarystarthistory
 
-import no.ssb.timeusesurveyapi.common.*
+import no.ssb.timeusesurveyapi.common.RequestType.*
+import no.ssb.timeusesurveyapi.common.RequestWrapper
+import no.ssb.timeusesurveyapi.common.RequestWrapperWithPayload
+import no.ssb.timeusesurveyapi.common.SessionToken
+import no.ssb.timeusesurveyapi.common.WebClientService
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,14 +14,14 @@ class DiaryStartHistoryGateway(
 ) {
 
     internal fun getDiaryStartHistories(respondentId: UUID, sessionToken: SessionToken) =
-        service.makeRequest(RequestWrapper(RequestType.GET, getDiaryStartHistoriesPath(respondentId), sessionToken))
+        service.makeRequest(RequestWrapper(GET, getDiaryStartHistoriesPath(respondentId), sessionToken))
 
     internal fun postDiaryStartHistory(respondentId: UUID, payload: String, sessionToken: SessionToken) =
         service.makeRequestWithPayload(
-            RequestWrapperWithPayload(RequestType.POST, postDiaryStartHistoriesPath(), payload, sessionToken)
+            RequestWrapperWithPayload(POST, postDiaryStartHistoriesPath(), payload, sessionToken)
         )
 
     internal fun deleteDiaryStartHistory(respondentId: UUID, sessionToken: SessionToken) =
-        service.makeRequest(RequestWrapper(RequestType.DELETE, deleteDiaryStartHistoriesPath(respondentId), sessionToken))
+        service.makeRequest(RequestWrapper(DELETE, deleteDiaryStartHistoriesPath(respondentId), sessionToken))
 
 }

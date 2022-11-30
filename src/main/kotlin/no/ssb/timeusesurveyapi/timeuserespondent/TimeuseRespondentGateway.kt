@@ -1,6 +1,8 @@
 package no.ssb.timeusesurveyapi.timeuserespondent
 
 import no.ssb.timeusesurveyapi.common.*
+import no.ssb.timeusesurveyapi.common.RequestType.GET
+import no.ssb.timeusesurveyapi.common.RequestType.PUT
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -8,11 +10,8 @@ import java.util.*
 class TimeuseRespondentGateway(
     private val service: WebClientService
 ) {
-    internal fun getTimseuseRespondentById(respondentId: UUID, sessionToken: SessionToken): ResponseWrapper {
-        return service.makeRequest(
-            RequestWrapper(RequestType.GET, getTimeuseRespondentByIdPath(respondentId), sessionToken)
-        )
-    }
+    internal fun getTimseuseRespondentById(respondentId: UUID, sessionToken: SessionToken) =
+        service.makeRequest(RequestWrapper(GET, getTimeuseRespondentByIdPath(respondentId), sessionToken))
 
     internal fun updateTimseuseRespondentById(
         respondentId: UUID,
@@ -20,7 +19,7 @@ class TimeuseRespondentGateway(
         sessionToken: SessionToken
     ): ResponseWrapper {
         return service.makeRequestWithPayload(
-            RequestWrapperWithPayload(RequestType.PUT, putTimeuseRespondentByIdPath(respondentId), payload, sessionToken)
+            RequestWrapperWithPayload(PUT, putTimeuseRespondentByIdPath(respondentId), payload, sessionToken)
         )
     }
 
@@ -33,7 +32,7 @@ class TimeuseRespondentGateway(
     ): ResponseWrapper {
         return service.makeRequestWithPayload(
             RequestWrapperWithPayload(
-                RequestType.PUT,
+                PUT,
                 putTimeuseRespondentStatusByIdPath(respondentId, status, value),
                 payload,
                 sessionToken
