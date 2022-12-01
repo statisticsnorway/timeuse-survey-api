@@ -1,9 +1,5 @@
-###
-# TODO
-###
 
 parameters:
-
   # Mandatory
   # The fully qualified name of the image repository e.g. prod-bip/ssb/stratus/am-hello-world
   - name: repoName
