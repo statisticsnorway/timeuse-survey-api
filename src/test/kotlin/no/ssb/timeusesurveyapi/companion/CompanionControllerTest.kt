@@ -5,6 +5,7 @@ import no.ssb.timeusesurveyapi.companionsJson
 import no.ssb.timeusesurveyapi.stubDeleteRequest
 import no.ssb.timeusesurveyapi.stubGetRequest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -70,6 +71,7 @@ class CompanionControllerTest {
 
     @Test
     fun `Deleting companions work as expected`(){
+        assertTrue(false)
         stubDeleteRequest(deleteCompanionPath(respondentId))
 
         restTemplate.exchange(
