@@ -14,36 +14,40 @@ parameters:
     default: 'gcrServiceConnection'
 
 jobs:
-  - task: Cache@2
-    displayName: Build Gradle cache
-    inputs:
-      key: 'gradle | "$(Agent.OS)"'
-      restoreKeys: gradle
-      path: $(Pipeline.Workspace)/.gradle
+  - job: Build and deploy
+    displayName: 'Build, test and deploy Dockerimage'
 
-  - task: Gradle@3
-    displayName: 'Run tests'
-    inputs:
-      tasks: 'clean check'
-      options: '--build-cache'
-      gradleWrapperFile: 'gradlew'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '17'
-      jdkArchitectureOption: 'x64'
-      publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
+    steps:
+      - task: Cache@2
+        displayName: Build Gradle cache
+        inputs:
+          key: 'gradle | "$(Agent.OS)"'
+          restoreKeys: gradle
+          path: $(Pipeline.Workspace)/.gradle
 
-  - task: Gradle@3
-    displayName: 'Build JAR'
-    inputs:
-      tasks: 'build'
-      gradleWrapperFile: 'gradlew'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '17'
-      jdkArchitectureOption: 'x64'
+      - task: Gradle@3
+        displayName: 'Run tests'
+        inputs:
+          tasks: 'clean check'
+          options: '--build-cache'
+          gradleWrapperFile: 'gradlew'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '17'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
 
-  - template: docker/docker-build-image-and-push-to-gcr.yml@templates
-    parameters:
-      repoName: ${{ parameters.repoName }}
-      imageName: ${{ parameters.imageName }}
-      gcrServiceConnection: ${{ parameters.gcrServiceConnection }}
+      - task: Gradle@3
+        displayName: 'Build JAR'
+        inputs:
+          tasks: 'build'
+          gradleWrapperFile: 'gradlew'
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '17'
+          jdkArchitectureOption: 'x64'
+
+      - template: docker/docker-build-image-and-push-to-gcr.yml@templates
+        parameters:
+          repoName: ${{ parameters.repoName }}
+          imageName: ${{ parameters.imageName }}
+          gcrServiceConnection: ${{ parameters.gcrServiceConnection }}
