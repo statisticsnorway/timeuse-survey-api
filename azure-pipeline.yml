@@ -34,12 +34,12 @@ variables:
     value: 'gcrServiceConnection-Tidsbruksprosjektet'
   - name: 'sonarCloud'
     value: 'bipSonarCloud-Tidsbruksprosjektet'
-
   - name: imageTagBeforeVulnerabilityScan
     value: 'imagescan-$(Build.SourceBranchName)-$(fullSha)'
   - name: imageTagAfterVulnerabilityScan
     value: $(Build.SourceBranchName)-$(fullSha)
-
+  - name: GRADLE_USER_HOME
+    value: $(Pipeline.Workspace)/.gradle
 
 resources:
   repositories:
@@ -61,6 +61,7 @@ steps:
   displayName: 'Run tests'
   inputs:
     tasks: 'clean check'
+    options: '--build-cache'
     gradleWrapperFile: 'gradlew'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '17'
