@@ -20,6 +20,13 @@ jobs:
     displayName: 'Build, test and deploy Dockerimage'
 
     steps:
+      - task: Cache@2
+        displayName: 'Build Gradle cache'
+        inputs:
+          key: 'gradle | "$(Agent.OS)"'
+          restoreKeys: gradle
+          path: $(Pipeline.Workspace)/.gradle
+
       - task: Gradle@3
         displayName: 'Run tests - gradlew clean check'
         inputs:
@@ -40,6 +47,11 @@ jobs:
           javaHomeOption: 'JDKVersion'
           jdkVersionOption: '17'
           jdkArchitectureOption: 'x64'
+
+      - script: |
+          # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+          ./gradlew --stop
+        displayName: Build
 
       - template: docker/docker-build-image-and-push-to-gcr.yml@templates
         parameters:
