@@ -15,7 +15,7 @@ parameters:
 
 jobs:
   - job: Build and deploy
-    displayName: 'Build, test and deploy Dockerimage'
+    displayName: 'Build/test and deploy Dockerimage'
 
     steps:
       - task: Cache@2
