@@ -48,6 +48,11 @@ jobs:
           jdkVersionOption: '17'
           jdkArchitectureOption: 'x64'
 
+      - script: |
+          # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+          ./gradlew --stop
+        displayName: Build
+
       - template: docker/docker-build-image-and-push-to-gcr.yml@templates
         parameters:
           repoName: ${{ parameters.repoName }}
