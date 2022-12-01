@@ -1,15 +1,16 @@
+# Job which runs Gradle clean test, build jar,
+# builds Docker image, tag the image, pushes this to GCR and checks for any image vulnerabilities
 
 parameters:
-  # Mandatory
   # The fully qualified name of the image repository e.g. prod-bip/ssb/stratus/am-hello-world
   - name: repoName
     default: ''
 
-  # Mandatory
   # The fully qualified name of the Docker image e.g. eu.gcr.io/prod-bip/ssb/stratus/am-hello-world
   - name: imageName
     default: ''
 
+  # The service connection to GCR
   - name: gcrServiceConnection
     default: 'gcrServiceConnection'
 
