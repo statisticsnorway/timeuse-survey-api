@@ -14,8 +14,8 @@ parameters:
     default: 'gcrServiceConnection'
 
 jobs:
-  - job: Build and deploy
-    displayName: 'Build/test and deploy Dockerimage'
+  - job: build_and_deploy
+    displayName: 'Build, test and deploy Dockerimage'
 
     steps:
       - task: Cache@2
