@@ -78,5 +78,6 @@ class CompanionControllerTest {
         ).also {
             assertEquals(HttpStatus.OK, it.statusCode)
         }
+
     }
 }
