@@ -1,5 +1,6 @@
-# Job which runs Gradle clean test, build jar,
-# builds Docker image, tag the image, pushes this to GCR and checks for any image vulnerabilities
+# Complete Template for Gradle project.
+# Job which runs Gradle clean test, build jar, builds Docker image,
+# tag the image, pushes this to GCR and checks for any image vulnerabilities
 
 parameters:
   # The fully qualified name of the image repository e.g. prod-bip/ssb/stratus/am-hello-world
