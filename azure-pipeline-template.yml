@@ -43,6 +43,7 @@ jobs:
         displayName: 'Build JAR - gradlew build'
         inputs:
           tasks: 'build'
+          options: '--build-cache'
           gradleWrapperFile: 'gradlew'
           javaHomeOption: 'JDKVersion'
           jdkVersionOption: '17'
