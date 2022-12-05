@@ -50,7 +50,7 @@ resources:
       endpoint: github-Tidsbruksprosjektet
 
 jobs:
-  - template: gradle/gradke-build-test-and-deploy.yml@templates
+  - template: gradle/gradle-build-test-and-deploy.yml@templates
     parameters:
       repoName: ${{ variables.repoName }}
       imageName: ${{ variables.imageName }}
