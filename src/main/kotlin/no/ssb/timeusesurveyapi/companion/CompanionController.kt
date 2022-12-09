@@ -1,11 +1,11 @@
 package no.ssb.timeusesurveyapi.companion
 
+import jakarta.servlet.http.HttpServletRequest
 import no.ssb.timeusesurveyapi.utils.getSessionToken
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/v1/respondent/{respondent-id}/companion")
