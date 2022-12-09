@@ -1,16 +1,16 @@
 package no.ssb.timeusesurveyapi.security.tokenexchange
 
+import jakarta.servlet.http.HttpServletResponse
 import no.ssb.timeusesurveyapi.common.ResponseWrapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.toEntity
 import reactor.core.publisher.Mono
-import javax.servlet.http.HttpServletResponse
 
 @Service
 class TokenExchangeGateway(
@@ -31,7 +31,7 @@ class TokenExchangeGateway(
                 .bodyValue(tokenExchangeRequest)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatus::isError) { Mono.empty() }
+                .onStatus(HttpStatusCode::isError) { Mono.empty() }
                 .toEntity<String>()
                 .block()
 

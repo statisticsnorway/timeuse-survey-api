@@ -1,8 +1,8 @@
 package no.ssb.timeusesurveyapi.utils
 
+import jakarta.servlet.http.HttpServletRequest
 import no.ssb.timeusesurveyapi.common.SessionToken
 import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
-import javax.servlet.http.HttpServletRequest
 
 private const val sessionTokenCookieName: String = "sessionToken"
 

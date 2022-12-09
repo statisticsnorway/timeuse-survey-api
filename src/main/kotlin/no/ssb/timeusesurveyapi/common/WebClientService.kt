@@ -3,7 +3,7 @@ package no.ssb.timeusesurveyapi.common
 import no.ssb.timeusesurveyapi.common.RequestType.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -35,7 +35,7 @@ class WebClientService(
                 .bodyValue(request.payload)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatus::isError) {
+                .onStatus(HttpStatusCode::isError) {
                     Mono.empty()
                 }
                 .toEntity(String::class.java)
@@ -65,7 +65,7 @@ class WebClientService(
                 .accept(MediaType.APPLICATION_JSON)
                 .cookie(requestWrapper.sessionToken.name, requestWrapper.sessionToken.value)
                 .retrieve()
-                .onStatus(HttpStatus::isError) {
+                .onStatus(HttpStatusCode::isError) {
                     Mono.empty()
                 }
                 .toEntity(String::class.java)

@@ -1,5 +1,7 @@
 package no.ssb.timeusesurveyapi.interceptor
 
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
 import no.ssb.timeusesurveyapi.utils.containSessionTokenCookie
 import no.ssb.timeusesurveyapi.utils.shouldHaveSessionToken
@@ -9,8 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Component
 class CustomHandlerInterceptor : HandlerInterceptor {
