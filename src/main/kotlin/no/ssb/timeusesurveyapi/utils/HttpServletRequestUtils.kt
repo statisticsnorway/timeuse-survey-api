@@ -18,4 +18,4 @@ internal fun HttpServletRequest.getSessionToken() = this.cookies
 internal fun HttpServletRequest.containSessionTokenCookie() =
     (this.cookies?.firstOrNull() { it.name.equals(sessionTokenCookieName) }) != null
 
-internal fun HttpServletRequest.shouldHaveSessionToken() = this.servletPath.contains("/v1/respondent")
+internal fun HttpServletRequest.shouldHaveSessionToken() = servletPath.contains("/v1/respondent")

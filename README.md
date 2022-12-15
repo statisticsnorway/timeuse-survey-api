@@ -57,3 +57,7 @@ Usikker hvordan man skal fordele post for main-activity og main-activities. Impl
 
 ### Sub activity
 * POST@ /v1/respondent/{respondent-id}/sub-activity
+
+
+### Survey
+* GET@ /v1/survey?abbr=?

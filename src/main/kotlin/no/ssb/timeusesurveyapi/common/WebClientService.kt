@@ -62,8 +62,9 @@ class WebClientService(
 
             val respons = requestWithMethod
                 .uri(timeuseSurveyServiceBaseUrl + requestWrapper.path)
-                .accept(MediaType.APPLICATION_JSON)
-                .cookie(requestWrapper.sessionToken.name, requestWrapper.sessionToken.value)
+                .accept(MediaType.APPLICATION_JSON).also {
+                    if(requestWrapper.sessionToken != null) it.cookie(requestWrapper.sessionToken.name, requestWrapper.sessionToken.value)
+                }
                 .retrieve()
                 .onStatus(HttpStatusCode::isError) {
                     Mono.empty()

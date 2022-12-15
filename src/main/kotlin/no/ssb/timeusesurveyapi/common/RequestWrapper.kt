@@ -12,5 +12,5 @@ data class RequestWrapperWithPayload (
 data class RequestWrapper (
     val requestType: RequestType,
     val path: String,
-    val sessionToken: SessionToken
+    val sessionToken: SessionToken? = null
 )

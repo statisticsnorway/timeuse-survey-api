@@ -2,14 +2,15 @@ package no.ssb.timeusesurveyapi
 
 import com.github.tomakehurst.wiremock.client.WireMock
 
-internal fun stubGetRequest(path: String, payload: String = "", statusCode: Int = 200){
+internal fun stubGetRequest(path: String, payload: String = "", statusCode: Int = 200, withSessionTokenCookie: Boolean = true){
     WireMock.stubFor(
-        WireMock.get(WireMock.urlEqualTo(path))
-            .withCookie("sessionToken", WireMock.matching("^.{36}$"))
-            .willReturn(
-                WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
-                    .withBody(payload)
-            )
+        WireMock.get(WireMock.urlEqualTo(path)).also {
+            if (withSessionTokenCookie) it.withCookie("sessionToken", WireMock.matching("^.{36}$"))
+        }
+        .willReturn(
+            WireMock.aResponse().withStatus(statusCode).withHeader("Content-Type", "application/json")
+                .withBody(payload)
+        )
     )
 }
 
@@ -150,5 +151,13 @@ internal val subActivityJson = """
     {
       "startTime" : "10:00",
       "endTime" : "10:10"
+    }
+""".trimIndent()
+
+//language=json
+internal val surveyJson = """
+    {
+      "id" : 123,
+      "name" : "SuRvEy"
     }
 """.trimIndent()
