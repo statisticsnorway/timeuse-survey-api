@@ -9,3 +9,7 @@ management:
 
 session-token-cookie-name: sessionToken
 timeuse-survey-service-ingress: timeuse-survey-service-ingress
+
+cors:
+  allowedOriginsPatterns: "/**"
+  allowedOrigins: "https://tid.ssb.no,https://tid.qa.ssb.no,https://tid.staging.ssb.no"
