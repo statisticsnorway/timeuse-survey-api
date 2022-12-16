@@ -6,7 +6,6 @@ import no.ssb.timeusesurveyapi.exceptions.MissingSessionTokenCookieException
 import no.ssb.timeusesurveyapi.utils.containSessionTokenCookie
 import no.ssb.timeusesurveyapi.utils.shouldHaveSessionToken
 import org.slf4j.LoggerFactory
-import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
@@ -19,9 +18,7 @@ class CustomHandlerInterceptor : HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         logger.info("${request.method} -> ${request.servletPath}")
-        if(request.method != HttpMethod.OPTIONS.toString()){
-            if(request.isForbidden()) throw MissingSessionTokenCookieException()
-        }
+        if(request.isForbidden()) throw MissingSessionTokenCookieException()
         return true
     }
 
