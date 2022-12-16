@@ -13,6 +13,6 @@ class CorsConfig : WebMvcConfigurer {
             .allowCredentials(true)
             .allowedMethods("GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH")
             .exposedHeaders("Access-Control-Allow-Origin")
-            .allowedHeaders("sessionToken", "Content-Type", "x-api-key")
+            .allowedHeaders("sessionToken", "Content-Type")
     }
 }
