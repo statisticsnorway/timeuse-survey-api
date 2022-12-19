@@ -2,7 +2,6 @@ package no.ssb.timeusesurveyapi.domain.mainactivityTest
 
 import no.ssb.timeusesurveyapi.*
 import no.ssb.timeusesurveyapi.domain.mainactivity.*
-import no.ssb.timeusesurveyapi.mainactivity.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -101,7 +100,7 @@ class MainActivityControllerTest {
 
     @Test
     fun `Posting main activity work as expected`() {
-        stubPostRequest(postMainActivityPath(), mainActivityJson)
+        stubPostRequest(postMainActivityPath(respondentId), mainActivityJson)
 
         restTemplate.exchange(
             "/v1/respondent/$respondentId/main-activity",

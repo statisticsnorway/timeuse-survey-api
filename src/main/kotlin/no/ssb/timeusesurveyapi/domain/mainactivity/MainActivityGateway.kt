@@ -30,9 +30,9 @@ class MainActivityGateway(
         )
     }
 
-    internal fun postMainActivity(payload: String, sessionToken: SessionToken): ResponseWrapper {
+    internal fun postMainActivity(respondentId: UUID, payload: String, sessionToken: SessionToken): ResponseWrapper {
         return webClientService.makeRequestWithPayload(
-            RequestWrapperWithPayload(POST, postMainActivityPath(), payload, sessionToken)
+            RequestWrapperWithPayload(POST, postMainActivityPath(respondentId), payload, sessionToken)
         )
     }
 
