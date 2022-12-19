@@ -49,7 +49,7 @@ class MainActivityController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         logger.info("Posting main activity for respondentId='$respondentId'")
-        return mainActivityGateway.postMainActivity(payload, request.getSessionToken()).asResponseEntity()
+        return mainActivityGateway.postMainActivity(respondentId, payload, request.getSessionToken()).asResponseEntity()
     }
 
     @PostMapping("/activities")
