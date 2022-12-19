@@ -33,7 +33,7 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2022.0.0-RC3")
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2022.0.0")
 	}
 }
 
