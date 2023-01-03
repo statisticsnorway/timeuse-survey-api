@@ -3,6 +3,8 @@ version: 2
 updates:
   - package-ecosystem: gradle
     directory: "/"
+    reviewers:
+      - "tidsbruk"
     schedule:
       interval: daily
       time: "07:00"
