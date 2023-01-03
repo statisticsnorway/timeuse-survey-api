@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/"
     reviewers:
-      - "tidsbruk"
+      - "statisticsnorway/tidsbruksundersokelsen"
     schedule:
       interval: daily
       time: "07:00"
